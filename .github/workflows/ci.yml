@@ -1,0 +1,38 @@
+name: CI con SonarQube
+
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
+
+jobs:
+  build-and-analyze:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - uses: actions/setup-java@v4
+        with:
+          java-version: "21"
+          distribution: "temurin"
+          cache: maven
+
+      - name: Compilar y ejecutar pruebas
+        run: mvn -B clean verify --no-transfer-progress
+
+      # Nota: el análisis SonarQube requiere un servidor accesible desde el runner.
+      # Para ejecución local usar: mvn sonar:sonar -Dsonar.token=$SONAR_TOKEN
+      # Para SonarCloud (gratuito para repos públicos) descomentar el bloque siguiente:
+      #
+      # - name: Analizar con SonarCloud
+      #   env:
+      #     SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
+      #   run: |
+      #     mvn -B sonar:sonar \
+      #       -Dsonar.host.url=https://sonarcloud.io \
+      #       -Dsonar.token=${{ env.SONAR_TOKEN }} \
+      #       --no-transfer-progress
