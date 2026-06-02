@@ -98,8 +98,7 @@ Complejidad ciclomática del método principal reducida extrayendo toda la valid
 ## Capturas del dashboard
 
 ### Antes — Post-Contenido 1
-![Dashboard inicial](docs/sonar-before.png)
+
 
 ### Después — Post-Contenido 2
-![Dashboard mejorado](docs/sonar-after.png)
-![Issues finales](docs/sonar-issues-after.png)
+
